@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyword Match Type Converter - Free PPC Tool</title>
+    <meta name="description" content="Free tool to convert keyword lists into Broad, Phrase, and Exact match types for Google Ads. Clean duplicates, format text, and copy results instantly.">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (CDN for standalone usage) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        gray: {
+                            850: '#1f2937',
+                            900: '#111827',
+                            950: '#030712',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom scrollbar for textareas */
+        textarea::-webkit-scrollbar {
+            width: 8px;
+        }
+        textarea::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        textarea::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        textarea::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        /* Smooth fade for copy feedback */
+        .fade-in {
+            animation: fadeIn 0.2s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- SEO-friendly Semantic Header -->
+    <header class="w-full bg-white border-b border-slate-200">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <svg class="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+                <span class="font-bold text-lg tracking-tight">Free Marketing Tools<span class="text-slate-400"></span></span>
+            </div>
+            <nav>
+                <a href="https://topmate.io/piyshkmr" target="_blank" class="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">Need Help in Marketing?</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Tool Content -->
+    <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
+        
+        <div class="mb-10 text-center sm:text-left">
+            <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-3">Keyword Match Type Converter</h1>
+            <p class="text-lg text-slate-500 max-w-2xl">Instantly format your Google Ads keywords. Clean duplicates, apply match types, and export ready-to-paste lists.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Left Column: Input & Controls -->
+            <div class="lg:col-span-5 space-y-6">
+                
+                <!-- Input Card -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-1">
+                    <textarea 
+                        id="inputKeywords" 
+                        class="w-full h-80 p-4 rounded-lg resize-none border-0 focus:ring-0 text-slate-700 placeholder-slate-400 text-sm leading-relaxed focus:bg-slate-50 transition-colors"
+                        placeholder="Paste keywords here (one per line)...&#10;cheap shoes&#10;&quot;best shoes&quot;&#10;[red shoes]"
+                        spellcheck="false"
+                    ></textarea>
+                </div>
+
+                <!-- Controls Card -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                    <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4">Configuration</h2>
+                    
+                    <div class="space-y-4">
+                        <!-- Lowercase Option -->
+                        <label class="flex items-center group cursor-pointer">
+                            <input type="checkbox" id="optLowercase" checked class="w-4 h-4 text-slate-900 border-slate-300 rounded focus:ring-slate-900 transition-all">
+                            <span class="ml-3 text-sm font-medium text-slate-700 group-hover:text-slate-900">Convert to lowercase</span>
+                        </label>
+
+                        <div class="h-px bg-slate-100 my-2"></div>
+
+                        <!-- Match Type Options -->
+                        <div class="grid grid-cols-1 gap-3">
+                            <label class="flex items-center group cursor-pointer">
+                                <input type="checkbox" id="optBroad" checked class="w-4 h-4 text-slate-900 border-slate-300 rounded focus:ring-slate-900 transition-all">
+                                <span class="ml-3 text-sm font-medium text-slate-700 group-hover:text-slate-900">Broad Match</span>
+                            </label>
+                            
+                            <label class="flex items-center group cursor-pointer">
+                                <input type="checkbox" id="optPhrase" checked class="w-4 h-4 text-slate-900 border-slate-300 rounded focus:ring-slate-900 transition-all">
+                                <span class="ml-3 text-sm font-medium text-slate-700 group-hover:text-slate-900">"Phrase Match"</span>
+                            </label>
+                            
+                            <label class="flex items-center group cursor-pointer">
+                                <input type="checkbox" id="optExact" checked class="w-4 h-4 text-slate-900 border-slate-300 rounded focus:ring-slate-900 transition-all">
+                                <span class="ml-3 text-sm font-medium text-slate-700 group-hover:text-slate-900">[Exact Match]</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-xs text-slate-400 text-center sm:text-left px-1">
+                    Processed locally in your browser. No data is sent to servers.
+                </div>
+            </div>
+
+            <!-- Right Column: Outputs -->
+            <div class="lg:col-span-7 space-y-6" id="outputContainer">
+                <!-- Output blocks will be injected here via JS -->
+                
+                <!-- Placeholder State -->
+                <div id="emptyState" class="h-full flex flex-col items-center justify-center text-center p-12 border-2 border-dashed border-slate-200 rounded-xl text-slate-400">
+                    <svg class="w-12 h-12 mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                    </svg>
+                    <p class="text-sm font-medium">Enter keywords to generate results</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Semantic Section for SEO Content (Hidden visually if desired, but good for context) -->
+        <section class="mt-20 border-t border-slate-200 pt-10">
+            <h2 class="text-xl font-bold text-slate-900 mb-4">How to use the Keyword Match Type Tool</h2>
+            <div class="grid md:grid-cols-3 gap-8 text-sm text-slate-600 leading-relaxed">
+                <div>
+                    <h3 class="font-semibold text-slate-900 mb-2">1. Paste Keywords</h3>
+                    <p>Copy your raw keyword list from Excel, CSV, or brainstorm sessions. The tool accepts mixed formats including existing brackets or quotes.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-slate-900 mb-2">2. Select Options</h3>
+                    <p>Choose which match types you need. By default, the tool cleans input, removes duplicates, and converts to lowercase for consistency.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-slate-900 mb-2">3. Copy & Deploy</h3>
+                    <p>Results are generated instantly. Use the one-click copy buttons to grab the specific lists you need for your Google Ads editor or spreadsheet.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-8 mt-auto">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center items-center text-xs text-slate-400">
+            <p>Built by a <a class="hover:underline" href="https://topmate.io/piyshkmr">Marketer</a>, for Marketers ❤️</p>
+        </div>
+    </footer>
+
+    <!-- Templates for JS to use -->
+    <template id="outputBlockTemplate">
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col transition-all duration-300">
+            <div class="px-4 py-3 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-slate-400 status-dot"></span>
+                    <h3 class="text-sm font-semibold text-slate-700 uppercase tracking-wide block-title">Title</h3>
+                    <span class="bg-slate-200 text-slate-600 text-[10px] font-bold px-1.5 py-0.5 rounded ml-2 count-badge">0</span>
+                </div>
+                <button class="copy-btn group flex items-center gap-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 bg-white hover:bg-white border border-slate-200 hover:border-slate-300 rounded-md px-3 py-1.5 transition-all shadow-sm">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                    <span>Copy</span>
+                </button>
+            </div>
+            <div class="relative group">
+                <textarea readonly class="w-full h-40 p-4 text-sm focus:outline-none font-mono text-slate-600 bg-white resize-none border-none focus:ring-0 output-area leading-relaxed" spellcheck="false"></textarea>
+                <!-- Fade overlay at bottom to indicate scroll -->
+                <div class="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        // DOM Elements
+        const inputArea = document.getElementById('inputKeywords');
+        const outputContainer = document.getElementById('outputContainer');
+        const emptyState = document.getElementById('emptyState');
+        const template = document.getElementById('outputBlockTemplate');
+        
+        // Options
+        const opts = {
+            lowercase: document.getElementById('optLowercase'),
+            broad: document.getElementById('optBroad'),
+            phrase: document.getElementById('optPhrase'),
+            exact: document.getElementById('optExact')
+        };
+
+        // Event Listeners
+        inputArea.addEventListener('input', processKeywords);
+        Object.values(opts).forEach(opt => opt.addEventListener('change', processKeywords));
+
+        function processKeywords() {
+            const rawText = inputArea.value;
+            
+            // 1. Basic check
+            if (!rawText.trim()) {
+                outputContainer.innerHTML = '';
+                outputContainer.appendChild(emptyState);
+                emptyState.style.display = 'flex';
+                return;
+            }
+            emptyState.style.display = 'none';
+
+            // 2. Parse and clean keywords
+            const lines = rawText.split('\n');
+            const cleanSet = new Set(); // Use Set for deduplication
+
+            lines.forEach(line => {
+                let text = line.trim();
+                if (!text) return;
+
+                // Remove existing match type punctuation (quotes and brackets)
+                // We remove leading/trailing quotes and brackets
+                text = text.replace(/^["\[]+|["\]]+$/g, '').trim();
+
+                if (opts.lowercase.checked) {
+                    text = text.toLowerCase();
+                }
+
+                if (text) cleanSet.add(text);
+            });
+
+            const uniqueKeywords = Array.from(cleanSet);
+
+            // 3. Generate Output Blocks
+            outputContainer.innerHTML = ''; // Clear current
+            
+            if (uniqueKeywords.length === 0) {
+                outputContainer.appendChild(emptyState);
+                emptyState.style.display = 'flex';
+                return;
+            }
+
+            // Define outputs config
+            const outputs = [];
+            
+            if (opts.broad.checked) {
+                outputs.push({
+                    title: 'Broad Match',
+                    color: 'bg-blue-500',
+                    content: uniqueKeywords.join('\n'),
+                    count: uniqueKeywords.length
+                });
+            }
+
+            if (opts.phrase.checked) {
+                const phraseKeywords = uniqueKeywords.map(k => `"${k}"`).join('\n');
+                outputs.push({
+                    title: 'Phrase Match',
+                    color: 'bg-purple-500',
+                    content: phraseKeywords,
+                    count: uniqueKeywords.length
+                });
+            }
+
+            if (opts.exact.checked) {
+                const exactKeywords = uniqueKeywords.map(k => `[${k}]`).join('\n');
+                outputs.push({
+                    title: 'Exact Match',
+                    color: 'bg-emerald-500',
+                    content: exactKeywords,
+                    count: uniqueKeywords.length
+                });
+            }
+
+            // Render
+            outputs.forEach(data => {
+                const clone = template.content.cloneNode(true);
+                
+                // Set content
+                clone.querySelector('.block-title').textContent = data.title;
+                clone.querySelector('.output-area').value = data.content;
+                clone.querySelector('.count-badge').textContent = data.count;
+                clone.querySelector('.status-dot').classList.remove('bg-slate-400');
+                clone.querySelector('.status-dot').classList.add(data.color);
+
+                // Setup Copy Button
+                const copyBtn = clone.querySelector('.copy-btn');
+                const textArea = clone.querySelector('.output-area');
+                
+                copyBtn.addEventListener('click', () => {
+                    textArea.select();
+                    document.execCommand('copy');
+                    
+                    // Visual feedback
+                    const originalHTML = copyBtn.innerHTML;
+                    copyBtn.innerHTML = `<svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span class="text-emerald-700">Copied!</span>`;
+                    copyBtn.classList.add('border-emerald-200', 'bg-emerald-50');
+                    
+                    setTimeout(() => {
+                        copyBtn.innerHTML = originalHTML;
+                        copyBtn.classList.remove('border-emerald-200', 'bg-emerald-50');
+                    }, 1500);
+                });
+
+                outputContainer.appendChild(clone);
+            });
+        }
+    </script>
+</body>
+</html>
