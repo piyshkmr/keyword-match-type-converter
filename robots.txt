@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://piyshkmr.github.io/keyword-match-type-converter/sitemap.xml
