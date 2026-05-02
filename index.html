@@ -1,590 +1,722 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Keyword Match Type Converter - Free PPC Tool</title>
-    <meta name="description" content="Free tool to convert keyword lists into Broad, Phrase, and Exact match types for Google Ads. Clean duplicates, format text, and copy results instantly.">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://piyshkmr.github.io/keyword-match-type-converter">
-    <meta property="og:title" content="Keyword Match Type Converter - Free PPC Tool">
-    <meta property="og:description" content="Free tool to convert keyword lists into Broad, Phrase, and Exact match types for Google Ads. Clean duplicates, format text, and copy results instantly.">
-    <meta property="og:url" content="https://piyshkmr.github.io/keyword-match-type-converter">
-    <meta property="og:type" content="website">
+    <meta
+      name="description"
+      content="Free tool to convert keyword lists into Broad, Phrase, and Exact match types for Google Ads. Clean duplicates, format text, and copy results instantly."
+    />
+    <meta name="robots" content="index, follow" />
+    <link
+      rel="canonical"
+      href="https://piyshkmr.github.io/keyword-match-type-converter"
+    />
+    <meta
+      property="og:title"
+      content="Keyword Match Type Converter - Free PPC Tool"
+    />
+    <meta
+      property="og:description"
+      content="Free tool to convert keyword lists into Broad, Phrase, and Exact match types for Google Ads. Clean duplicates, format text, and copy results instantly."
+    />
+    <meta
+      property="og:url"
+      content="https://piyshkmr.github.io/keyword-match-type-converter"
+    />
+    <meta property="og:type" content="website" />
 
     <style>
-        /* ─── Design Tokens ─────────────────────────────────────────── */
-        :root {
-            --black:          #111110;
-            --gray-900:       #1c1c1a;
-            --gray-600:       #5a5a57;
-            --gray-400:       #9a9a96;
-            --gray-200:       #e4e4e0;
-            --gray-100:       #f2f2ee;
-            --gray-50:        #f9f9f7;
-            --white:          #ffffff;
+      /* ─── Design Tokens ─────────────────────────────────────────── */
+      :root {
+        --black: #111110;
+        --gray-900: #1c1c1a;
+        --gray-600: #5a5a57;
+        --gray-400: #9a9a96;
+        --gray-200: #e4e4e0;
+        --gray-100: #f2f2ee;
+        --gray-50: #f9f9f7;
+        --white: #ffffff;
 
-            --green:          #166534;
-            --green-bg:       #dcfce7;
-            --green-border:   #bbf7d0;
+        --green: #166534;
+        --green-bg: #dcfce7;
+        --green-border: #bbf7d0;
 
-            --teal:           #0f6e56;
-            --teal-bg:        #e1f5ee;
-            --teal-border:    #9fe1cb;
+        --teal: #0f6e56;
+        --teal-bg: #e1f5ee;
+        --teal-border: #9fe1cb;
 
-            --purple:         #3c3489;
-            --purple-bg:      #eeedfe;
-            --purple-border:  #cecbf6;
+        --purple: #3c3489;
+        --purple-bg: #eeedfe;
+        --purple-border: #cecbf6;
 
-            --amber:          #854f0b;
-            --amber-bg:       #faeeda;
+        --amber: #854f0b;
+        --amber-bg: #faeeda;
 
-            --transition:     0.2s ease;
+        --transition: 0.2s ease;
 
-            --font-head: Georgia, "Times New Roman", serif;
-            --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            --max-w: 960px;
-        }
+        --font-head: Georgia, "Times New Roman", serif;
+        --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        --max-w: 960px;
+      }
 
-        /* ─── Reset ─────────────────────────────────────────────────── */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { -webkit-font-smoothing: antialiased; }
+      /* ─── Reset ─────────────────────────────────────────────────── */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        -webkit-font-smoothing: antialiased;
+      }
 
-        body {
-            font-family: var(--font-body);
-            background: var(--gray-50);
-            color: var(--black);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+      body {
+        font-family: var(--font-body);
 
-        a { color: inherit; text-decoration: none; transition: color var(--transition); }
+        color: var(--black);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
 
-        /* ─── Nav ────────────────────────────────────────────────────── */
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(255,255,255,0.92);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--gray-200);
-        }
-        .nav-inner {
-            max-width: var(--max-w);
-            margin: 0 auto;
-            padding: 0 24px;
-            height: 56px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .nav-logo {
-            font-family: var(--font-head);
-            font-size: 17px;
-            color: var(--black);
-        }
-        .nav-cta {
-            font-family: var(--font-body);
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--white);
-            background: var(--black);
-            padding: 7px 16px;
-            border-radius: 6px;
-            transition: opacity var(--transition);
-        }
-        .nav-cta:hover { opacity: 0.85; }
+      a {
+        color: inherit;
+        text-decoration: none;
+        transition: color var(--transition);
+      }
 
-        /* ─── Main ───────────────────────────────────────────────────── */
+      /* ─── Nav ────────────────────────────────────────────────────── */
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--gray-200);
+      }
+      .nav-inner {
+        max-width: var(--max-w);
+        margin: 0 auto;
+        padding: 0 24px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .nav-logo {
+        font-family: var(--font-head);
+        font-size: 17px;
+        color: var(--black);
+      }
+      .nav-cta {
+        font-family: var(--font-body);
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--white);
+        background: var(--black);
+        padding: 7px 16px;
+        border-radius: 6px;
+        transition: opacity var(--transition);
+      }
+      .nav-cta:hover {
+        opacity: 0.85;
+      }
+
+      /* ─── Main ───────────────────────────────────────────────────── */
+      main {
+        flex-grow: 1;
+        max-width: var(--max-w);
+        margin: 0 auto;
+        width: 100%;
+        padding: 64px 24px;
+      }
+
+      /* ─── Page Header ────────────────────────────────────────────── */
+      .page-header {
+        margin-bottom: 40px;
+      }
+      .page-header h1 {
+        font-family: var(--font-head);
+        font-size: clamp(28px, 4vw, 38px);
+        font-weight: normal;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        color: var(--black);
+        margin-bottom: 10px;
+      }
+      .page-header p {
+        font-size: 16px;
+        color: var(--gray-600);
+        line-height: 1.7;
+        max-width: 520px;
+      }
+
+      /* ─── Tool Grid ──────────────────────────────────────────────── */
+      .tool-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        align-items: start;
+      }
+
+      /* ─── Left Column ────────────────────────────────────────────── */
+      .left-col {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .input-card {
+        background: var(--white);
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .input-card textarea {
+        width: 100%;
+        height: 280px;
+        padding: 16px;
+        border: none;
+        outline: none;
+        resize: none;
+        font-family: var(--font-body);
+        font-size: 14px;
+        color: var(--gray-600);
+        background: var(--white);
+        line-height: 1.7;
+      }
+
+      /* Custom scrollbar */
+      textarea::-webkit-scrollbar {
+        width: 6px;
+      }
+      textarea::-webkit-scrollbar-track {
+        background: var(--gray-50);
+      }
+      textarea::-webkit-scrollbar-thumb {
+        background: var(--gray-200);
+        border-radius: 4px;
+      }
+      textarea::-webkit-scrollbar-thumb:hover {
+        background: var(--gray-400);
+      }
+
+      .controls-card {
+        background: var(--white);
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        padding: 20px;
+      }
+      .controls-label {
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--gray-400);
+        margin-bottom: 16px;
+      }
+      .controls-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .divider {
+        height: 1px;
+        background: var(--gray-100);
+        margin: 4px 0;
+      }
+
+      /* Custom checkbox */
+      .check-label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+      }
+      .check-label input[type="checkbox"] {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 16px;
+        height: 16px;
+        border: 1px solid var(--gray-200);
+        border-radius: 4px;
+        background: var(--white);
+        cursor: pointer;
+        position: relative;
+        flex-shrink: 0;
+        transition:
+          background var(--transition),
+          border-color var(--transition);
+      }
+      .check-label input[type="checkbox"]:checked {
+        background: var(--black);
+        border-color: var(--black);
+      }
+      .check-label input[type="checkbox"]:checked::after {
+        content: "";
+        position: absolute;
+        left: 4px;
+        top: 2px;
+        width: 5px;
+        height: 8px;
+        border: 1.5px solid var(--white);
+        border-top: none;
+        border-left: none;
+        transform: rotate(45deg);
+      }
+      .check-label span {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--gray-600);
+        transition: color var(--transition);
+      }
+      .check-label:hover span {
+        color: var(--black);
+      }
+
+      .privacy-note {
+        font-size: 11px;
+        color: var(--gray-400);
+        text-align: center;
+      }
+
+      /* ─── Right Column / Outputs ─────────────────────────────────── */
+      .right-col {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      /* Empty state */
+      .empty-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 64px 24px;
+        border: 1px dashed var(--gray-200);
+        border-radius: 10px;
+        color: var(--gray-400);
+        gap: 12px;
+      }
+      .empty-state svg {
+        opacity: 0.4;
+      }
+      .empty-state p {
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      /* Output block */
+      .output-block {
+        background: var(--white);
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .output-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 16px;
+        background: var(--gray-50);
+        border-bottom: 1px solid var(--gray-100);
+      }
+      .output-header-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .dot-broad {
+        background: var(--black);
+      }
+      .dot-phrase {
+        background: var(--purple);
+      }
+      .dot-exact {
+        background: var(--teal);
+      }
+
+      .output-title {
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--gray-600);
+      }
+      .count-badge {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 20px;
+        background: var(--gray-100);
+        color: var(--gray-600);
+        border: 1px solid var(--gray-200);
+      }
+      .copy-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-family: var(--font-body);
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--gray-600);
+        background: var(--white);
+        border: 1px solid var(--gray-200);
+        border-radius: 6px;
+        padding: 5px 12px;
+        cursor: pointer;
+        transition:
+          color var(--transition),
+          border-color var(--transition),
+          background var(--transition);
+      }
+      .copy-btn:hover {
+        color: var(--black);
+        border-color: var(--gray-400);
+      }
+      .copy-btn svg {
+        width: 13px;
+        height: 13px;
+        flex-shrink: 0;
+      }
+      .copy-btn.copied {
+        color: var(--green);
+        border-color: var(--green-border);
+        background: var(--green-bg);
+      }
+
+      .output-body {
+        position: relative;
+      }
+      .output-area {
+        width: 100%;
+        height: 160px;
+        padding: 16px;
+        font-family: var(--font-body);
+        font-size: 14px;
+        color: var(--gray-600);
+        background: var(--white);
+        border: none;
+        outline: none;
+        resize: none;
+        line-height: 1.7;
+      }
+      .output-fade {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 28px;
+        background: linear-gradient(to top, var(--white), transparent);
+        pointer-events: none;
+      }
+
+      /* ─── How-to Section ─────────────────────────────────────────── */
+      .howto-section {
+        margin-top: 72px;
+        padding-top: 40px;
+        border-top: 1px solid var(--gray-200);
+      }
+      .howto-section h2 {
+        font-family: var(--font-head);
+        font-size: clamp(22px, 3vw, 28px);
+        font-weight: normal;
+        letter-spacing: -0.02em;
+        color: var(--black);
+        margin-bottom: 28px;
+      }
+      .howto-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--gray-200);
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .howto-item {
+        background: var(--white);
+        padding: 28px 24px;
+      }
+      .howto-num {
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--gray-400);
+        margin-bottom: 10px;
+      }
+      .howto-item h3 {
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--black);
+        margin-bottom: 8px;
+      }
+      .howto-item p {
+        font-size: 14px;
+        color: var(--gray-600);
+        line-height: 1.7;
+      }
+
+      /* ─── Footer ─────────────────────────────────────────────────── */
+      footer {
+        background: var(--white);
+        border-top: 1px solid var(--gray-200);
+        padding: 28px 24px;
+        margin-top: auto;
+      }
+      .footer-inner {
+        max-width: var(--max-w);
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .footer-inner p {
+        font-size: 13px;
+        color: var(--gray-400);
+      }
+      .footer-inner a {
+        color: var(--gray-400);
+        transition: color var(--transition);
+      }
+      .footer-inner a:hover {
+        color: var(--black);
+        text-decoration: underline;
+      }
+
+      /* ─── Responsive ─────────────────────────────────────────────── */
+      @media (max-width: 680px) {
         main {
-            flex-grow: 1;
-            max-width: var(--max-w);
-            margin: 0 auto;
-            width: 100%;
-            padding: 64px 24px;
+          padding: 40px 16px;
         }
 
-        /* ─── Page Header ────────────────────────────────────────────── */
-        .page-header {
-            margin-bottom: 40px;
-        }
-        .page-header h1 {
-            font-family: var(--font-head);
-            font-size: clamp(28px, 4vw, 38px);
-            font-weight: normal;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-            color: var(--black);
-            margin-bottom: 10px;
-        }
-        .page-header p {
-            font-size: 16px;
-            color: var(--gray-600);
-            line-height: 1.7;
-            max-width: 520px;
-        }
-
-        /* ─── Tool Grid ──────────────────────────────────────────────── */
         .tool-grid {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 24px;
-            align-items: start;
-        }
-
-        /* ─── Left Column ────────────────────────────────────────────── */
-        .left-col { display: flex; flex-direction: column; gap: 16px; }
-
-        .input-card {
-            background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .input-card textarea {
-            width: 100%;
-            height: 280px;
-            padding: 16px;
-            border: none;
-            outline: none;
-            resize: none;
-            font-family: var(--font-body);
-            font-size: 14px;
-            color: var(--gray-600);
-            background: var(--white);
-            line-height: 1.7;
-            transition: background var(--transition);
-        }
-        .input-card textarea::placeholder { color: var(--gray-400); }
-        .input-card textarea:focus { background: var(--gray-50); }
-
-        /* Custom scrollbar */
-        textarea::-webkit-scrollbar { width: 6px; }
-        textarea::-webkit-scrollbar-track { background: var(--gray-50); }
-        textarea::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 4px; }
-        textarea::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
-
-        .controls-card {
-            background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: 10px;
-            padding: 20px;
-        }
-        .controls-label {
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--gray-400);
-            margin-bottom: 16px;
-        }
-        .controls-list { display: flex; flex-direction: column; gap: 12px; }
-
-        .divider {
-            height: 1px;
-            background: var(--gray-100);
-            margin: 4px 0;
-        }
-
-        /* Custom checkbox */
-        .check-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-        }
-        .check-label input[type="checkbox"] {
-            appearance: none;
-            -webkit-appearance: none;
-            width: 16px;
-            height: 16px;
-            border: 1px solid var(--gray-200);
-            border-radius: 4px;
-            background: var(--white);
-            cursor: pointer;
-            position: relative;
-            flex-shrink: 0;
-            transition: background var(--transition), border-color var(--transition);
-        }
-        .check-label input[type="checkbox"]:checked {
-            background: var(--black);
-            border-color: var(--black);
-        }
-        .check-label input[type="checkbox"]:checked::after {
-            content: '';
-            position: absolute;
-            left: 4px;
-            top: 2px;
-            width: 5px;
-            height: 8px;
-            border: 1.5px solid var(--white);
-            border-top: none;
-            border-left: none;
-            transform: rotate(45deg);
-        }
-        .check-label span {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--gray-600);
-            transition: color var(--transition);
-        }
-        .check-label:hover span { color: var(--black); }
-
-        .privacy-note {
-            font-size: 11px;
-            color: var(--gray-400);
-            text-align: center;
-        }
-
-        /* ─── Right Column / Outputs ─────────────────────────────────── */
-        .right-col { display: flex; flex-direction: column; gap: 16px; }
-
-        /* Empty state */
-        .empty-state {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 64px 24px;
-            border: 1px dashed var(--gray-200);
-            border-radius: 10px;
-            color: var(--gray-400);
-            gap: 12px;
-        }
-        .empty-state svg { opacity: 0.4; }
-        .empty-state p { font-size: 14px; font-weight: 500; }
-
-        /* Output block */
-        .output-block {
-            background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .output-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 16px;
-            background: var(--gray-50);
-            border-bottom: 1px solid var(--gray-100);
-        }
-        .output-header-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-        .dot-broad   { background: var(--black); }
-        .dot-phrase  { background: var(--purple); }
-        .dot-exact   { background: var(--teal); }
-
-        .output-title {
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--gray-600);
-        }
-        .count-badge {
-            font-size: 10px;
-            font-weight: 700;
-            padding: 2px 6px;
-            border-radius: 20px;
-            background: var(--gray-100);
-            color: var(--gray-600);
-            border: 1px solid var(--gray-200);
-        }
-        .copy-btn {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-family: var(--font-body);
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--gray-600);
-            background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: 6px;
-            padding: 5px 12px;
-            cursor: pointer;
-            transition: color var(--transition), border-color var(--transition), background var(--transition);
-        }
-        .copy-btn:hover { color: var(--black); border-color: var(--gray-400); }
-        .copy-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
-        .copy-btn.copied {
-            color: var(--green);
-            border-color: var(--green-border);
-            background: var(--green-bg);
-        }
-
-        .output-body { position: relative; }
-        .output-area {
-            width: 100%;
-            height: 160px;
-            padding: 16px;
-            font-family: var(--font-body);
-            font-size: 14px;
-            color: var(--gray-600);
-            background: var(--white);
-            border: none;
-            outline: none;
-            resize: none;
-            line-height: 1.7;
-        }
-        .output-fade {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 28px;
-            background: linear-gradient(to top, var(--white), transparent);
-            pointer-events: none;
-        }
-
-        /* ─── How-to Section ─────────────────────────────────────────── */
-        .howto-section {
-            margin-top: 72px;
-            padding-top: 40px;
-            border-top: 1px solid var(--gray-200);
-        }
-        .howto-section h2 {
-            font-family: var(--font-head);
-            font-size: clamp(22px, 3vw, 28px);
-            font-weight: normal;
-            letter-spacing: -0.02em;
-            color: var(--black);
-            margin-bottom: 28px;
+          grid-template-columns: 1fr;
         }
         .howto-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
-            background: var(--gray-200);
-            border: 1px solid var(--gray-200);
-            border-radius: 10px;
-            overflow: hidden;
+          grid-template-columns: 1fr;
         }
-        .howto-item {
-            background: var(--white);
-            padding: 28px 24px;
-        }
-        .howto-num {
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--gray-400);
-            margin-bottom: 10px;
-        }
-        .howto-item h3 {
-            font-size: 15px;
-            font-weight: 500;
-            color: var(--black);
-            margin-bottom: 8px;
-        }
-        .howto-item p {
-            font-size: 14px;
-            color: var(--gray-600);
-            line-height: 1.7;
-        }
-
-        /* ─── Footer ─────────────────────────────────────────────────── */
         footer {
-            background: var(--white);
-            border-top: 1px solid var(--gray-200);
-            padding: 28px 24px;
-            margin-top: auto;
+          padding: 24px 16px;
         }
-        .footer-inner {
-            max-width: var(--max-w);
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .footer-inner p {
-            font-size: 13px;
-            color: var(--gray-400);
-        }
-        .footer-inner a {
-            color: var(--gray-400);
-            transition: color var(--transition);
-        }
-        .footer-inner a:hover { color: var(--black); text-decoration: underline; }
-
-        /* ─── Responsive ─────────────────────────────────────────────── */
-        @media (max-width: 680px) {
-            main { padding: 40px 16px; }
-
-            .tool-grid {
-                grid-template-columns: 1fr;
-            }
-            .howto-grid {
-                grid-template-columns: 1fr;
-            }
-            footer { padding: 24px 16px; }
-        }
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <nav>
-        <div class="nav-inner">
-            <a class="nav-logo" >Piyush Kumar</a>
-            <a class="nav-cta" href="https://piyshkmr.github.io/" target="_blank">Work with me</a>
-        </div>
+      <div class="nav-inner">
+        <a class="nav-logo">Piyush Kumar</a>
+        <a class="nav-cta" href="https://piyshkmr.github.io/" target="_blank"
+          >Work with me</a
+        >
+      </div>
     </nav>
 
     <main>
-        <div class="page-header">
-            <h1>Keyword Match Type Converter</h1>
-            <p>Instantly format your Google Ads keywords. Clean duplicates, apply match types, and export ready-to-paste lists.</p>
+      <div class="page-header">
+        <h1>Keyword Match Type Converter</h1>
+        <p>
+          Instantly format your Google Ads keywords. Clean duplicates, apply
+          match types, and export ready-to-paste lists.
+        </p>
+      </div>
+
+      <div class="tool-grid">
+        <!-- Left: Input & Controls -->
+        <div class="left-col">
+          <div class="input-card">
+            <textarea
+              id="inputKeywords"
+              placeholder='Paste keywords here (one per line)...&#10;cheap shoes&#10;"best shoes"&#10;[red shoes]'
+              spellcheck="false"
+            ></textarea>
+          </div>
+
+          <div class="controls-card">
+            <div class="controls-label">Configuration</div>
+            <div class="controls-list">
+              <label class="check-label">
+                <input type="checkbox" id="optLowercase" checked />
+                <span>Convert to lowercase</span>
+              </label>
+              <div class="divider"></div>
+              <label class="check-label">
+                <input type="checkbox" id="optBroad" checked />
+                <span>Broad Match</span>
+              </label>
+              <label class="check-label">
+                <input type="checkbox" id="optPhrase" checked />
+                <span>"Phrase Match"</span>
+              </label>
+              <label class="check-label">
+                <input type="checkbox" id="optExact" checked />
+                <span>[Exact Match]</span>
+              </label>
+            </div>
+          </div>
+
+          <p class="privacy-note">
+            Processed locally in your browser. No data is sent to servers.
+          </p>
         </div>
 
-        <div class="tool-grid">
-
-            <!-- Left: Input & Controls -->
-            <div class="left-col">
-
-                <div class="input-card">
-                    <textarea
-                        id="inputKeywords"
-                        placeholder="Paste keywords here (one per line)...&#10;cheap shoes&#10;&quot;best shoes&quot;&#10;[red shoes]"
-                        spellcheck="false"
-                    ></textarea>
-                </div>
-
-                <div class="controls-card">
-                    <div class="controls-label">Configuration</div>
-                    <div class="controls-list">
-                        <label class="check-label">
-                            <input type="checkbox" id="optLowercase" checked>
-                            <span>Convert to lowercase</span>
-                        </label>
-                        <div class="divider"></div>
-                        <label class="check-label">
-                            <input type="checkbox" id="optBroad" checked>
-                            <span>Broad Match</span>
-                        </label>
-                        <label class="check-label">
-                            <input type="checkbox" id="optPhrase" checked>
-                            <span>"Phrase Match"</span>
-                        </label>
-                        <label class="check-label">
-                            <input type="checkbox" id="optExact" checked>
-                            <span>[Exact Match]</span>
-                        </label>
-                    </div>
-                </div>
-
-                <p class="privacy-note">Processed locally in your browser. No data is sent to servers.</p>
-            </div>
-
-            <!-- Right: Outputs -->
-            <div class="right-col" id="outputContainer">
-                <div class="empty-state" id="emptyState">
-                    <svg width="40" height="40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-                    </svg>
-                    <p>Enter keywords to generate results</p>
-                </div>
-            </div>
+        <!-- Right: Outputs -->
+        <div class="right-col" id="outputContainer">
+          <div class="empty-state" id="emptyState">
+            <svg
+              width="40"
+              height="40"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+              />
+            </svg>
+            <p>Enter keywords to generate results</p>
+          </div>
         </div>
+      </div>
 
-        <!-- How to use -->
-        <section class="howto-section">
-            <h2>How to use this tool</h2>
-            <div class="howto-grid">
-                <div class="howto-item">
-                    <div class="howto-num">Step 01</div>
-                    <h3>Paste Keywords</h3>
-                    <p>Copy your raw keyword list from Excel, CSV, or brainstorm sessions. The tool accepts mixed formats including existing brackets or quotes.</p>
-                </div>
-                <div class="howto-item">
-                    <div class="howto-num">Step 02</div>
-                    <h3>Select Options</h3>
-                    <p>Choose which match types you need. By default, the tool cleans input, removes duplicates, and converts to lowercase for consistency.</p>
-                </div>
-                <div class="howto-item">
-                    <div class="howto-num">Step 03</div>
-                    <h3>Copy & Deploy</h3>
-                    <p>Results are generated instantly. Use the one-click copy buttons to grab the specific lists you need for Google Ads Editor or your spreadsheet.</p>
-                </div>
-            </div>
-        </section>
+      <!-- How to use -->
+      <section class="howto-section">
+        <h2>How to use this tool</h2>
+        <div class="howto-grid">
+          <div class="howto-item">
+            <div class="howto-num">Step 01</div>
+            <h3>Paste Keywords</h3>
+            <p>
+              Copy your raw keyword list from Excel, CSV, or brainstorm
+              sessions. The tool accepts mixed formats including existing
+              brackets or quotes.
+            </p>
+          </div>
+          <div class="howto-item">
+            <div class="howto-num">Step 02</div>
+            <h3>Select Options</h3>
+            <p>
+              Choose which match types you need. By default, the tool cleans
+              input, removes duplicates, and converts to lowercase for
+              consistency.
+            </p>
+          </div>
+          <div class="howto-item">
+            <div class="howto-num">Step 03</div>
+            <h3>Copy & Deploy</h3>
+            <p>
+              Results are generated instantly. Use the one-click copy buttons to
+              grab the specific lists you need for Google Ads Editor or your
+              spreadsheet.
+            </p>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer>
-        <div class="footer-inner">
-            <p>Built by a <a href="https://topmate.io/piyshkmr" target="_blank">Marketer</a>, for Marketers ❤️</p>
-        </div>
+      <div class="footer-inner">
+        <p>
+          Built by a
+          <a href="https://piyshkmr.github.io/" target="_blank">Marketer</a>,
+          for Marketers ❤️
+        </p>
+      </div>
     </footer>
 
     <script>
-        const inputArea       = document.getElementById('inputKeywords');
-        const outputContainer = document.getElementById('outputContainer');
-        const emptyState      = document.getElementById('emptyState');
+      const inputArea = document.getElementById("inputKeywords");
+      const outputContainer = document.getElementById("outputContainer");
+      const emptyState = document.getElementById("emptyState");
 
-        const opts = {
-            lowercase: document.getElementById('optLowercase'),
-            broad:     document.getElementById('optBroad'),
-            phrase:    document.getElementById('optPhrase'),
-            exact:     document.getElementById('optExact'),
-        };
+      const opts = {
+        lowercase: document.getElementById("optLowercase"),
+        broad: document.getElementById("optBroad"),
+        phrase: document.getElementById("optPhrase"),
+        exact: document.getElementById("optExact"),
+      };
 
-        inputArea.addEventListener('input', processKeywords);
-        Object.values(opts).forEach(o => o.addEventListener('change', processKeywords));
+      inputArea.addEventListener("input", processKeywords);
+      Object.values(opts).forEach((o) =>
+        o.addEventListener("change", processKeywords),
+      );
 
-        function processKeywords() {
-            const rawText = inputArea.value;
+      function processKeywords() {
+        const rawText = inputArea.value;
 
-            if (!rawText.trim()) {
-                outputContainer.innerHTML = '';
-                outputContainer.appendChild(emptyState);
-                emptyState.style.display = 'flex';
-                return;
-            }
-            emptyState.style.display = 'none';
+        if (!rawText.trim()) {
+          outputContainer.innerHTML = "";
+          outputContainer.appendChild(emptyState);
+          emptyState.style.display = "flex";
+          return;
+        }
+        emptyState.style.display = "none";
 
-            // Parse + clean
-            const cleanSet = new Set();
-            rawText.split('\n').forEach(line => {
-                let text = line.trim();
-                if (!text) return;
-                text = text.replace(/^["\[]+|["\]]+$/g, '').trim();
-                if (opts.lowercase.checked) text = text.toLowerCase();
-                if (text) cleanSet.add(text);
-            });
+        // Parse + clean
+        const cleanSet = new Set();
+        rawText.split("\n").forEach((line) => {
+          let text = line.trim();
+          if (!text) return;
+          text = text.replace(/^["\[]+|["\]]+$/g, "").trim();
+          if (opts.lowercase.checked) text = text.toLowerCase();
+          if (text) cleanSet.add(text);
+        });
 
-            const kws = Array.from(cleanSet);
+        const kws = Array.from(cleanSet);
 
-            outputContainer.innerHTML = '';
+        outputContainer.innerHTML = "";
 
-            if (kws.length === 0) {
-                outputContainer.appendChild(emptyState);
-                emptyState.style.display = 'flex';
-                return;
-            }
+        if (kws.length === 0) {
+          outputContainer.appendChild(emptyState);
+          emptyState.style.display = "flex";
+          return;
+        }
 
-            const outputs = [];
+        const outputs = [];
 
-            if (opts.broad.checked)  outputs.push({ title: 'Broad Match',  dot: 'dot-broad',  content: kws.join('\n'),                    count: kws.length });
-            if (opts.phrase.checked) outputs.push({ title: 'Phrase Match', dot: 'dot-phrase', content: kws.map(k => `"${k}"`).join('\n'), count: kws.length });
-            if (opts.exact.checked)  outputs.push({ title: 'Exact Match',  dot: 'dot-exact',  content: kws.map(k => `[${k}]`).join('\n'), count: kws.length });
+        if (opts.broad.checked)
+          outputs.push({
+            title: "Broad Match",
+            dot: "dot-broad",
+            content: kws.join("\n"),
+            count: kws.length,
+          });
+        if (opts.phrase.checked)
+          outputs.push({
+            title: "Phrase Match",
+            dot: "dot-phrase",
+            content: kws.map((k) => `"${k}"`).join("\n"),
+            count: kws.length,
+          });
+        if (opts.exact.checked)
+          outputs.push({
+            title: "Exact Match",
+            dot: "dot-exact",
+            content: kws.map((k) => `[${k}]`).join("\n"),
+            count: kws.length,
+          });
 
-            outputs.forEach(data => {
-                const block = document.createElement('div');
-                block.className = 'output-block';
-                block.innerHTML = `
+        outputs.forEach((data) => {
+          const block = document.createElement("div");
+          block.className = "output-block";
+          block.innerHTML = `
                     <div class="output-header">
                         <div class="output-header-left">
                             <span class="status-dot ${data.dot}"></span>
@@ -605,35 +737,35 @@
                     </div>
                 `;
 
-                const btn      = block.querySelector('.copy-btn');
-                const textarea = block.querySelector('.output-area');
+          const btn = block.querySelector(".copy-btn");
+          const textarea = block.querySelector(".output-area");
 
-                btn.addEventListener('click', () => {
-                    textarea.select();
-                    document.execCommand('copy');
+          btn.addEventListener("click", () => {
+            textarea.select();
+            document.execCommand("copy");
 
-                    btn.classList.add('copied');
-                    btn.innerHTML = `
+            btn.classList.add("copied");
+            btn.innerHTML = `
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:13px;height:13px">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                         </svg>
                         <span>Copied!</span>
                     `;
-                    setTimeout(() => {
-                        btn.classList.remove('copied');
-                        btn.innerHTML = `
+            setTimeout(() => {
+              btn.classList.remove("copied");
+              btn.innerHTML = `
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:13px;height:13px">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
                             </svg>
                             <span>Copy</span>
                         `;
-                    }, 1500);
-                });
+            }, 1500);
+          });
 
-                outputContainer.appendChild(block);
-            });
-        }
+          outputContainer.appendChild(block);
+        });
+      }
     </script>
-</body>
+  </body>
 </html>
